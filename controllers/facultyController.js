@@ -9,7 +9,6 @@ exports.getAllFaculties = (req, res) => {
 
 exports.addFaculty = (req, res) => {
     const newFaculty = req.body
-    console.log(newFaculty)
     Faculty.add(newFaculty, (err, result) => {
         if(err) return res.status(500).json({ error: err.message })
         res.json({ message: 'Add new faculty successfully', id: result.insertId})

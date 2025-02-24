@@ -90,8 +90,20 @@ exports.login = (req, res) => {
                 return res.status(401).json({ error: "Sai mật khẩu!" })
             }
 
+            let id = ''
+
+            if(user.vai_tro === 'manager'){
+                id = user.id_manager
+            }
+            else if(user.vai_tro === 'teacher'){
+                id = user.id_giang_vien
+            }
+            else {
+                id = user.id_sinh_vien
+            }
+
             const token = jwt.sign(
-                { id: user.id, username: user.username, vai_tro: user.vai_tro },
+                { id: user.id, username: user.username, vai_tro: user.vai_tro, id_author: id },
                 process.env.JWT_SECRET,
                 { expiresIn: '1h' }
             )
