@@ -76,3 +76,16 @@ exports.getStudentById = (req, res) => {
         res.json(student)
     })
 }
+
+exports.getStudentByMSSV = (req, res) => {
+    const mssv = req.params.id
+
+    Student.getByMSSV(mssv, (err, result) => {
+        if (err) return res.status(500).json({ error: err.message })
+        if (!result || result.length === 0) {
+            return res.json([])
+        }
+        const student = {...result[0], imageBase64: result[0].image ? `data:image/jpeg;base64,${result[0].image.toString("base64")}` : null}
+        res.json(student)
+    })
+}

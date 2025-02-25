@@ -40,3 +40,21 @@ exports.getSectionClassById = (req, res) => {
       res.json(result[0])
     })
 }
+
+exports.getAllSectionClassesById = (req, res) => {
+    const id = req.params.id
+    SectionClass.getAllByIdSemester(id, (err, result) => {
+      if (err) return res.status(500).json({ error: err.message })
+      res.json(result)
+    })
+}
+
+exports.getAllJoinSectionClassesByIdSemesterAndIdStudent = (req, res) => {
+
+    const { idSemester, idStudent } = req.params
+
+    SectionClass.getAllJoinByIdSemesterAndIdStudent({ idSemester, idStudent }, (err, result) => {
+      if (err) return res.status(500).json({ error: err.message })
+      res.json(result)
+    })
+}
