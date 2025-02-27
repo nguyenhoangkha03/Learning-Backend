@@ -58,3 +58,25 @@ exports.getAllJoinSectionClassesByIdSemesterAndIdStudent = (req, res) => {
       res.json(result)
     })
 }
+
+exports.getAllJoinSectionClassesByIdSemesterAndNotIdStudent = (req, res) => {
+
+    const { idSemester, idStudent } = req.params
+
+    SectionClass.getAllJoinByIdSemesterAndNotIdStudent({ idSemester, idStudent }, (err, result) => {
+      if (err) return res.status(500).json({ error: err.message })
+      res.json(result)
+    })
+}
+
+exports.getAllJoinGroupBySemesterSectionClassesByIdStudent = (req, res) => {
+
+    const idStudent = req.params
+
+    console.log(idStudent);
+
+    SectionClass.getAllJoinGroupBySemesterByIdStudent(idStudent, (err, result) => {
+      if (err) return res.status(500).json({ error: err.message })
+      res.json(result)
+    })
+}

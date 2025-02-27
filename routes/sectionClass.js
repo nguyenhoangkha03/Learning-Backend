@@ -9,5 +9,7 @@ router.put('/update/:id', sectionClassController.updateSectionClass);
 router.get('/:id', sectionClassController.getSectionClassById);
 router.get('/semester/:id', sectionClassController.getAllSectionClassesById);
 router.get('/semester-student/:idSemester/:idStudent', sectionClassController.getAllJoinSectionClassesByIdSemesterAndIdStudent);
+router.get('/semester-not-student/:idSemester/:idStudent', sectionClassController.getAllJoinSectionClassesByIdSemesterAndNotIdStudent);
+router.get('/student/:idStudent', sectionClassController.getAllJoinGroupBySemesterSectionClassesByIdStudent);
 
 module.exports = router

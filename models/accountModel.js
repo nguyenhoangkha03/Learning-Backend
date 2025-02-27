@@ -47,6 +47,16 @@ const Account = {
                  WHERE id_tai_khoan = ?`;
         db.query(query, [username, password, vai_tro, trang_thai, idGiangVien, idSinhVien, idManager, id], callback);
     },
+
+    updatePassword: (taiKhoan, callback) => {
+        const { username, password} = taiKhoan
+
+
+        const query = `UPDATE tai_khoan 
+                 SET password = ?
+                 WHERE username = ?`;
+        db.query(query, [password, username], callback);
+    },
    
     checkLogin: (taikhoan, callback) => {
         const {  username, password } = taikhoan

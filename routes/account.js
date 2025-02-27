@@ -11,5 +11,6 @@ router.delete('/delete/:id', accountController.deleteAccount)
 router.put('/update/:id', accountController.updateAccount)
 router.get('/:id', accountController.getAccountyById)
 router.post('/login', accountController.login)
+router.post('/update-password', accountController.updatePassword)
 
 module.exports = router

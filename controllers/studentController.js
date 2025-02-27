@@ -78,7 +78,7 @@ exports.getStudentById = (req, res) => {
 }
 
 exports.getStudentByMSSV = (req, res) => {
-    const mssv = req.params.id
+    const mssv = req.params.mssv
 
     Student.getByMSSV(mssv, (err, result) => {
         if (err) return res.status(500).json({ error: err.message })

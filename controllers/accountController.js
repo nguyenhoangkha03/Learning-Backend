@@ -75,6 +75,18 @@ exports.getAccountyById = (req, res) => {
     })
 }
 
+exports.updatePassword = (req, res) => {
+    const { username, password } = req.body
+    bcrypt.hash(password, saltRounds, (err, hash) => {
+        if(err) return res.status(500).json({ error: 'Error hash' })
+
+        Account.updatePassword({ username, password: hash }, (err, result) => {
+            if(err) return res.status(500).json({ error: err.message })
+            res.json({ message: 'Update account successfully', affectedRows: result.affectedRows})
+        })
+    })
+}
+
 exports.login = (req, res) => {
     const { username, password } = req.body
     Account.getByUsername(username, (err, result) => {

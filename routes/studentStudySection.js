@@ -5,7 +5,7 @@ const studentStudySectionController = require('../controllers/studentStudySectio
 router.get('/list', studentStudySectionController.getAllStudentStudySections)
 router.post('/add', studentStudySectionController.addStudentStudySection)
 router.delete('/delete/:id', studentStudySectionController.deleteStudentStudySection)
-router.put('/update/:id', studentStudySectionController.updateStudentStudySection);
-router.get('/:id', studentStudySectionController.getStudentStudySectionById);
+router.put('/update/:id', studentStudySectionController.updateStudentStudySection)
+router.get('/:id', studentStudySectionController.getStudentStudySectionById)
 
 module.exports = router

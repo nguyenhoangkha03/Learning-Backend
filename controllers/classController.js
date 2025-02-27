@@ -26,6 +26,7 @@ exports.deleteClass= (req, res) => {
 exports.updateClass = (req, res) => {
     const id = req.params.id
     const newClass = req.body
+    console.log(newClass);
     Classs.update(id, newClass, (err, result) => {
         if(err) return res.status(500).json({ error: err.message })
         res.json({ message: 'Update class successfully', affectedRows: result.affectedRows })

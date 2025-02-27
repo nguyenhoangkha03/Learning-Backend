@@ -12,6 +12,8 @@ const subjectRoutes = require('./routes/subject')
 const semesterRoutes = require('./routes/semester')
 const sectionClassRoutes = require('./routes/sectionClass')
 const studentStudySectionRoutes = require('./routes/studentStudySection')
+const scheduleRoutes = require('./routes/schedule')
+const majorRoutes = require('./routes/major')
 
 const app = express()
 const port = 3333
@@ -30,6 +32,8 @@ app.use('/api/subject', subjectRoutes)
 app.use('/api/semester', semesterRoutes)
 app.use('/api/sectionClass', sectionClassRoutes)
 app.use('/api/studentStudySection', studentStudySectionRoutes)
+app.use('/api/schedule', scheduleRoutes)
+app.use('/api/major', majorRoutes)
 
 app.listen(port, "0.0.0.0", () => {
   console.log(`Server is running on port ${port}`)
