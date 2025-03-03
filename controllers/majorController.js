@@ -9,7 +9,6 @@ exports.getAllMajors = (req, res) => {
 
 exports.addMajor = (req, res) => {
     const newMajor = req.body
-    console.log(newMajor);
     Major.add(newMajor, (err, result) => {
         if(err) return res.status(500).json({ error: err.message })
         res.json({ message: 'Add new Major successfully', id: result.insertId})

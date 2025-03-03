@@ -77,6 +77,39 @@ exports.getStudentById = (req, res) => {
     })
 }
 
+exports.getStudentByIdClass = (req, res) => {
+    const id = req.params.id
+
+    Student.getByIdClass(id, (err, result) => {
+        if(err) return res.status(500).json({ error: err.message })
+        
+        if (!result || result.length === 0) {
+            return res.json([])
+        }
+
+        // const students = result.map(student => ({
+        //     ...student,
+        //     image: student.image ? `data:image/jpeg;base64,${student.image.toString("base64")}` : null
+        // }))
+
+        res.json(result)
+    })
+}
+
+exports.getStudentByName = (req, res) => {
+    const name = req.params.name
+
+    Student.getByName(name, (err, result) => {
+        if(err) return res.status(500).json({ error: err.message })
+        
+        if (!result || result.length === 0) {
+            return res.json([])
+        }
+
+        res.json(result)
+    })
+}
+
 exports.getStudentByMSSV = (req, res) => {
     const mssv = req.params.mssv
 

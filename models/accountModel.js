@@ -60,7 +60,6 @@ const Account = {
    
     checkLogin: (taikhoan, callback) => {
         const {  username, password } = taikhoan
-        console.log(username, password)
         db.query(`
             SELECT * FROM tai_khoan WHERE username = ? AND password = ?`
         , [username, password], callback)

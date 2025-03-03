@@ -50,9 +50,27 @@ exports.getJoinAllSchedulesByIdClass = (req, res) => {
     })
 }
 
+exports.getJoinAllSchedulesByIdTeacher = (req, res) => {
+    const id = req.params.id
+    Schedule.getAllJoinByIdTeacher(id, (err, result) => {
+      if (err) return res.status(500).json({ error: err.message })
+      if (result.length === 0) return res.status(404).json({ message: 'Schedule not found' })
+      res.json(result)
+    })
+}
+
 exports.getAllScheduleByIdClassAndDateNow = (req, res) => {
     const id = req.params.id
     Schedule.getAllByIdClassAndDateNow(id, (err, result) => {
+      if (err) return res.status(500).json({ error: err.message })
+      if (result.length === 0) return res.status(404).json({ message: 'Schedule not found' })
+      res.json(result)
+    })
+}
+
+exports.getCountScheduleByIdStudentAndIdSemester = (req, res) => {
+    const { idStudent, idSemester } = req.params
+    Schedule.getCountByIdStudentAndIdSemester({ idStudent, idSemester } , (err, result) => {
       if (err) return res.status(500).json({ error: err.message })
       if (result.length === 0) return res.status(404).json({ message: 'Schedule not found' })
       res.json(result)

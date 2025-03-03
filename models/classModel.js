@@ -28,6 +28,13 @@ const Classs = {
 
     getById: (id, callback) => {
         db.query(`SELECT * FROM lop WHERE id_lop = ?`, [id], callback);
+    },
+
+    getByIdSemester: (id, callback) => {
+        db.query(`SELECT DISTINCT sinh_vien.id_lop FROM lop_hoc_phan 
+                    INNER JOIN sv_hoc_hp ON lop_hoc_phan.id_lop_hoc_phan = sv_hoc_hp.id_lop_hoc_phan
+                    INNER JOIN sinh_vien ON sv_hoc_hp.id_sinh_vien = sinh_vien.id_sinh_vien
+                    WHERE lop_hoc_phan.id_lop_hoc_phan = ?`, [id], callback);
     }
 }
 

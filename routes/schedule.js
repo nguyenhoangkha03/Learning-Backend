@@ -9,6 +9,8 @@ router.delete('/delete/:id', scheduleController.deleteSchedule)
 router.put('/update/:id', scheduleController.updateSchedule)
 router.get('/:id', scheduleController.getScheduleById)
 router.get('/class/:id', scheduleController.getJoinAllSchedulesByIdClass)
+router.get('/teacher/:id', scheduleController.getJoinAllSchedulesByIdTeacher)
 router.get('/class/date/:id', scheduleController.getAllScheduleByIdClassAndDateNow)
+router.get('/count-schedule/:idStudent/:idSemester', scheduleController.getCountScheduleByIdStudentAndIdSemester)
 
 module.exports = router

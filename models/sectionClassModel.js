@@ -41,6 +41,12 @@ const SectionClass = {
                     WHERE id_hoc_ky = ? AND id_sinh_vien = ?`, [idSemester, idStudent], callback);
     },
 
+    getAllJoinByIdSemesterAndIdTeacher: (id, callback) => {
+        const { idSemester, idTeacher } = id
+        db.query(`SELECT * FROM lop_hoc_phan
+                    WHERE id_hoc_ky = ? AND id_giang_vien = ?`, [idSemester, idTeacher], callback);
+    },
+
     getAllJoinByIdSemesterAndNotIdStudent: (id, callback) => {
         const { idSemester, idStudent } = id
         db.query(`SELECT * from lop_hoc_phan WHERE id_hoc_ky = ? AND
@@ -55,6 +61,13 @@ const SectionClass = {
         db.query(`SELECT * FROM lop_hoc_phan INNER JOIN sv_hoc_hp 
                     ON lop_hoc_phan.id_lop_hoc_phan = sv_hoc_hp.id_lop_hoc_phan
                     WHERE id_sinh_vien = ?`, [idStudent], callback);
+    },
+
+    getAllByIdTeacher: (id, callback) => {
+        const { idTeacher } = id
+        
+        db.query(`SELECT * FROM lop_hoc_phan 
+                    WHERE id_giang_vien = ?`, [idTeacher], callback);
     }
 }
 

@@ -26,7 +26,6 @@ exports.deleteClass= (req, res) => {
 exports.updateClass = (req, res) => {
     const id = req.params.id
     const newClass = req.body
-    console.log(newClass);
     Classs.update(id, newClass, (err, result) => {
         if(err) return res.status(500).json({ error: err.message })
         res.json({ message: 'Update class successfully', affectedRows: result.affectedRows })
@@ -39,5 +38,14 @@ exports.getClassyById = (req, res) => {
       if (err) return res.status(500).json({ error: err.message })
       if (result.length === 0) return res.status(404).json({ message: 'Class not found' })
       res.json(result[0])
+    })
+}
+
+exports.getClassyByIdSemester = (req, res) => {
+    const id = req.params.id
+    Classs.getByIdSemester(id, (err, result) => {
+      if (err) return res.status(500).json({ error: err.message })
+      if (result.length === 0) return res.status(404).json({ message: 'Class not found' })
+      res.json(result)
     })
 }

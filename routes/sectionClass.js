@@ -11,5 +11,7 @@ router.get('/semester/:id', sectionClassController.getAllSectionClassesById);
 router.get('/semester-student/:idSemester/:idStudent', sectionClassController.getAllJoinSectionClassesByIdSemesterAndIdStudent);
 router.get('/semester-not-student/:idSemester/:idStudent', sectionClassController.getAllJoinSectionClassesByIdSemesterAndNotIdStudent);
 router.get('/student/:idStudent', sectionClassController.getAllJoinGroupBySemesterSectionClassesByIdStudent);
+router.get('/teacher/:idTeacher', sectionClassController.getAllSectionClassByIdTeacher);
+router.get('/semester-teacher/:idSemester/:idTeacher', sectionClassController.getAllJoinSectionClassesByIdSemesterAndIdTeacher)
 
 module.exports = router

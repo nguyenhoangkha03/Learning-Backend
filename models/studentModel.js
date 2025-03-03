@@ -31,6 +31,14 @@ const Student = {
         db.query(`SELECT * FROM sinh_vien WHERE id_sinh_vien = ?`, [id], callback);
     },
 
+    getByIdClass: (id, callback) => {
+        db.query(`SELECT * FROM sinh_vien WHERE id_lop = ?`, [id], callback);
+    },
+
+    getByName: (name, callback) => {
+        db.query(`SELECT * FROM sinh_vien WHERE ho_ten LIKE ?`, [name], callback);
+    },
+
     getByMSSV: (mssv, callback) => {
         db.query(`SELECT * FROM sinh_vien WHERE mssv = ?`, [mssv], callback);
     }

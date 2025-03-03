@@ -11,6 +11,8 @@ router.post('/add', upload.single('image'), studentController.addStudent)
 router.delete('/delete/:id', studentController.deleteStudent)
 router.put('/update/:id', upload.single('image'), studentController.updateStudent)
 router.get('/:id', studentController.getStudentById)
+router.get('/class/:id', studentController.getStudentByIdClass)
+router.get('/name/:name', studentController.getStudentByName)
 router.get('/mssv/:mssv', studentController.getStudentByMSSV)
 
 module.exports = router
