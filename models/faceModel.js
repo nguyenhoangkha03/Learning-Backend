@@ -146,7 +146,7 @@ async function recognizeFace(imageData) {
 
     if (bestMatch.distance < 0.6) {
       if (checkedInNames.includes(bestMatch.name)) {
-        return { match: "Đã điểm danh", confidence, time: getVietnamTime(), shouldSave: false };
+        return { match: "Đã điểm danh", confidence, time: getVietnamTime(), shouldSave: true };
       }
       checkedInNames.push(bestMatch.name);
       return { match: bestMatch.name, confidence, time: getVietnamTime(), shouldSave: true };
