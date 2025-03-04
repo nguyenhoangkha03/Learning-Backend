@@ -45,10 +45,17 @@ const Schedule = {
     },
 
     getAllByIdClassAndDateNow: (id, callback) => {
-        const today = new Date().toISOString().split('T')[0]
-        db.query(`SELECT *
-                    FROM lich_hoc
-                    WHERE id_lop = ? and ngay = ?`, [id, today], callback)
+        const today = new Date().toISOString().split('T')[0];
+        db.query(
+            `SELECT lh.*, mh.ten_mon, lh.session
+             FROM lich_hoc lh
+             JOIN lop_hoc_phan lhp ON lh.id_lop_hoc_phan = lhp.id_lop_hoc_phan
+             JOIN mon_hoc mh ON lhp.id_mon_hoc = mh.id_mon_hoc
+             WHERE lh.id_lop = ? AND lh.ngay = ?
+             ORDER BY lh.session`, 
+            [id, today], 
+            callback
+        );
     },
 
     getCountByIdStudentAndIdSemester: (id, callback) => {
@@ -57,6 +64,12 @@ const Schedule = {
                     INNER JOIN sv_hoc_hp ON lop_hoc_phan.id_lop_hoc_phan = sv_hoc_hp.id_lop_hoc_phan
                     INNER JOIN lich_hoc ON lich_hoc.id_lop_hoc_phan = lop_hoc_phan.id_lop_hoc_phan
                     WHERE id_sinh_vien = ? AND id_hoc_ky = ?`, [idStudent, idSemester], callback)
+    },
+
+    getByIdSectionAndClassAndDay: (id, now, callback) => {
+        const { idSection, idClass } = id
+        db.query(`SELECT * from lich_hoc
+                    WHERE id_lop_hoc_phan = ? AND id_lop = ? AND ngay = ?`, [idSection, idClass, now], callback)
     }
 }
 

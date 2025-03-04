@@ -76,3 +76,13 @@ exports.getCountScheduleByIdStudentAndIdSemester = (req, res) => {
       res.json(result)
     })
 }
+
+exports.getScheduleByIdSectionAndIdClassAndDay = (req, res) => {
+    const { idSection, idClass } = req.params
+    const now = new Date().toISOString().split("T")[0]
+    Schedule.getByIdSectionAndClassAndDay({ idSection, idClass } , now, (err, result) => {
+      if (err) return res.status(500).json({ error: err.message })
+      if (result.length === 0) return res.status(404).json({ message: 'Schedule not found' })
+      res.json(result)
+    })
+}

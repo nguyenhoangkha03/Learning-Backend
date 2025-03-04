@@ -96,6 +96,44 @@ exports.getStudentByIdClass = (req, res) => {
     })
 }
 
+exports.getStudentByIdClassAndIdSection = (req, res) => {
+    const { idClass, idSection } = req.params
+
+    Student.getByIdClassAndIdSection({ idClass, idSection }, (err, result) => {
+        if(err) return res.status(500).json({ error: err.message })
+        
+        if (!result || result.length === 0) {
+            return res.json([])
+        }
+
+        // const students = result.map(student => ({
+        //     ...student,
+        //     image: student.image ? `data:image/jpeg;base64,${student.image.toString("base64")}` : null
+        // }))
+
+        res.json(result)
+    })
+}
+
+exports.getStudentByIdClassAndIdSectionAndIdSchedule = (req, res) => {
+    const { idClass, idSection,idSchedule } = req.params
+
+    Student.getByIdClassAndIdSectionAndIdSchedule({ idClass, idSection, idSchedule }, (err, result) => {
+        if(err) return res.status(500).json({ error: err.message })
+        
+        if (!result || result.length === 0) {
+            return res.json([])
+        }
+
+        // const students = result.map(student => ({
+        //     ...student,
+        //     image: student.image ? `data:image/jpeg;base64,${student.image.toString("base64")}` : null
+        // }))
+
+        res.json(result)
+    })
+}
+
 exports.getStudentByName = (req, res) => {
     const name = req.params.name
 

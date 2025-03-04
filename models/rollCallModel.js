@@ -6,24 +6,24 @@ const RollCall = {
     },
     
 
-    add: (faculty, callback) => {
-        const { thoi_gian, id_lich_hoc, id_sinh_vien } = faculty
-        db.query(`INSERT INTO diem_danh(thoi_gian, id_lich_hoc, id_sinh_vien) 
-                    VALUES (?,?,?)
+    add: (faculty, now, callback) => {
+        const { id_lich_hoc, id_sinh_vien, status } = faculty
+        db.query(`INSERT INTO diem_danh(thoi_gian, id_lich_hoc, id_sinh_vien, status) 
+                    VALUES (?,?,?,?)
                 `
-            , [thoi_gian, id_lich_hoc, id_sinh_vien], callback)
+            , [now, id_lich_hoc, id_sinh_vien, status], callback)
     },
 
     delete: (id, callback) => {
         db.query(`DELETE FROM diem_danh WHERE id_diem_danh = ?`, [id], callback)
     },
 
-    update: (id, faculty, callback) => {
-        const { thoi_gian, id_lich_hoc, id_sinh_vien } = faculty
+    update: (id, faculty, now, callback) => {
+        const { id_lich_hoc, id_sinh_vien, status } = faculty
         const query = `UPDATE diem_danh 
-                 SET thoi_gian = ?, id_lich_hoc = ?, id_sinh_vien = ? 
+                 SET thoi_gian = ?, id_lich_hoc = ?, id_sinh_vien = ?, status = ?
                  WHERE id_diem_danh = ?`;
-        db.query(query, [thoi_gian, id_lich_hoc, id_sinh_vien, id], callback);
+        db.query(query, [now, id_lich_hoc, id_sinh_vien, status, id], callback);
     },
 
     getById: (id, callback) => {

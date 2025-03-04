@@ -17,9 +17,18 @@ const sectionClassRoutes = require('./routes/sectionClass')
 const studentStudySectionRoutes = require('./routes/studentStudySection')
 const scheduleRoutes = require('./routes/schedule')
 const majorRoutes = require('./routes/major')
+const rollCallRoutes = require('./routes/rollCall')
+const faceRoutes = require('./routes/face')
+const { loadModels } = require('./models/faceModel')
+const faceregisterRouter = require('./routes/faceregister')
+const diemDanhRoutes = require('./routes/diemdanh')
 
 const app = express()
 const port = 3333
+app.use(express.json({ limit: '50mb' }))
+app.use(express.urlencoded({ extended: true, limit: '50mb' }))
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 
 const allowedOrigins = ['http://localhost:3000', 'http://localhost:3001']
@@ -43,6 +52,16 @@ app.use(
     cookie: { secure: false },
   })
 )
+
+// (async () => {
+//   try {
+//     await loadModels();
+//     console.log("✅ Face recognition models loaded successfully.");
+//   } catch (error) {
+//     console.error("❌ Error loading face recognition models:", error);
+//   }
+// })()
+
 app.get("/captcha", (req, res) => {
   const captcha = svgCaptcha.create({
     noise: 2,
@@ -79,6 +98,10 @@ app.use('/api/sectionClass', sectionClassRoutes)
 app.use('/api/studentStudySection', studentStudySectionRoutes)
 app.use('/api/schedule', scheduleRoutes)
 app.use('/api/major', majorRoutes)
+app.use('/api/rollCall', rollCallRoutes)
+app.use('/api/face', faceRoutes)
+app.use('/api/faceregister', faceregisterRouter)
+app.use("/api", diemDanhRoutes)
 app.listen(port, "0.0.0.0", () => {
   console.log(`Server is running on port ${port}`)
 })

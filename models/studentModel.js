@@ -35,6 +35,24 @@ const Student = {
         db.query(`SELECT * FROM sinh_vien WHERE id_lop = ?`, [id], callback);
     },
 
+    getByIdClassAndIdSection: (id, callback) => {
+        const { idClass, idSection } = id
+        db.query(`SELECT * FROM sinh_vien 
+                    LEFT JOIN sv_hoc_hp ON sinh_vien.id_sinh_vien = sv_hoc_hp.id_sinh_vien
+                    AND sv_hoc_hp.id_lop_hoc_phan = ?
+                    WHERE id_lop = ? `, [idSection, idClass], callback);
+    },
+
+    getByIdClassAndIdSectionAndIdSchedule: (id, callback) => {
+        const { idClass, idSection, idSchedule } = id
+        db.query(`SELECT sinh_vien.id_sinh_vien as idsv, sinh_vien.*, sv_hoc_hp.*, diem_danh.* FROM sinh_vien 
+                    LEFT JOIN sv_hoc_hp ON sinh_vien.id_sinh_vien = sv_hoc_hp.id_sinh_vien
+                    AND sv_hoc_hp.id_lop_hoc_phan = ?
+                    LEFT JOIN diem_danh ON sinh_vien.id_sinh_vien = diem_danh.id_sinh_vien
+                    AND diem_danh.id_lich_hoc = ?
+                    WHERE sinh_vien.id_lop = ?`, [idSection, idSchedule, idClass], callback);
+    },
+
     getByName: (name, callback) => {
         db.query(`SELECT * FROM sinh_vien WHERE ho_ten LIKE ?`, [name], callback);
     },

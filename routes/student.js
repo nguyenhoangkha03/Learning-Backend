@@ -12,6 +12,8 @@ router.delete('/delete/:id', studentController.deleteStudent)
 router.put('/update/:id', upload.single('image'), studentController.updateStudent)
 router.get('/:id', studentController.getStudentById)
 router.get('/class/:id', studentController.getStudentByIdClass)
+router.get('/class-section/:idClass/:idSection', studentController.getStudentByIdClassAndIdSection)
+router.get('/class-section-schedule/:idClass/:idSection/:idSchedule', studentController.getStudentByIdClassAndIdSectionAndIdSchedule)
 router.get('/name/:name', studentController.getStudentByName)
 router.get('/mssv/:mssv', studentController.getStudentByMSSV)
 

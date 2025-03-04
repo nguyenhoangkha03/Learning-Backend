@@ -12,5 +12,6 @@ router.get('/class/:id', scheduleController.getJoinAllSchedulesByIdClass)
 router.get('/teacher/:id', scheduleController.getJoinAllSchedulesByIdTeacher)
 router.get('/class/date/:id', scheduleController.getAllScheduleByIdClassAndDateNow)
 router.get('/count-schedule/:idStudent/:idSemester', scheduleController.getCountScheduleByIdStudentAndIdSemester)
+router.get('/section-class/:idSection/:idClass', scheduleController.getScheduleByIdSectionAndIdClassAndDay)
 
 module.exports = router
