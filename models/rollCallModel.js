@@ -8,10 +8,10 @@ const RollCall = {
 
     add: (faculty, now, callback) => {
         const { id_lich_hoc, id_sinh_vien, status } = faculty
-        db.query(`INSERT INTO diem_danh(thoi_gian, id_lich_hoc, id_sinh_vien, status) 
-                    VALUES (?,?,?,?)
+        db.query(`INSERT INTO diem_danh(id_lich_hoc, id_sinh_vien, status) 
+                    VALUES (?,?,?)
                 `
-            , [now, id_lich_hoc, id_sinh_vien, status], callback)
+            , [id_lich_hoc, id_sinh_vien, status], callback)
     },
 
     delete: (id, callback) => {

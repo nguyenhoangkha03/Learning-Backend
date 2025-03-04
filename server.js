@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const svgCaptcha = require("svg-captcha")
 const session = require("express-session")
+const QRCode = require('qrcode')
 
 const bodyParser = require('body-parser')
 const facultyRoutes = require('./routes/faculty')
@@ -22,6 +23,7 @@ const faceRoutes = require('./routes/face')
 const { loadModels } = require('./models/faceModel')
 const faceregisterRouter = require('./routes/faceregister')
 const diemDanhRoutes = require('./routes/diemdanh')
+const studentModel = require('./models/studentModel')
 
 const app = express()
 const port = 3333
@@ -30,8 +32,7 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-
-const allowedOrigins = ['http://localhost:3000', 'http://localhost:3001']
+const allowedOrigins = ['http://localhost:3000', 'http://localhost:3001', 'https://23tg8v1m-3001.asse.devtunnels.ms', 'https://23tg8v1m-3000.asse.devtunnels.ms', 'https://23tg8v1m-3002.asse.devtunnels.ms']
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
@@ -52,6 +53,34 @@ app.use(
     cookie: { secure: false },
   })
 )
+
+app.post('/api/qr/generate-qr', async (req, res) => {
+  const { schedule_id } = req.body;
+  if (!schedule_id) {
+    return res.status(400).send('Vui lòng cung cấp schedule_id');
+  }
+
+  const formUrl = `https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform?usp=pp_url&entry.12345678=${schedule_id}`;
+  try {
+    const qrImage = await QRCode.toDataURL(formUrl);
+    res.send({ qrImage });
+  } catch (error) {
+    res.status(500).send('Lỗi khi tạo mã QR');
+  }
+})
+
+app.post('/api/qr/student', (req, res) => {
+  const { classId, scheduleId } = req.body;
+  console.log(classId, scheduleId);
+  studentModel.getByIdClass(classId, (err, result) => {
+    if (err) return res.status(500).json({ error: err.message })
+    if (result.length === 0) return res.status(404).json({ message: 'Major not found' })
+    const qrData = { scheduleId, classId };
+    res.json({ qrData, result });
+  })
+
+});
+
 
 // (async () => {
 //   try {
